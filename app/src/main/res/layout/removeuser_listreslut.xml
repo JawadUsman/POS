@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:padding="5dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp">
+    <RelativeLayout android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <TextView android:id="@+id/rescustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Medium"
+            android:paddingRight="5sp"
+            android:hint="new text"
+            android:textColor="#000000" />
+
+        <TextView android:id="@+id/sstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:paddingRight="2sp"
+            android:hint="new text"
+            android:layout_toRightOf="@+id/rescustomer"
+            android:layout_toEndOf="@+id/rescustomer"
+            android:textColor="#757272" />
+
+        <TextView android:id="@+id/resname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:hint="Phone no"
+            android:layout_below="@+id/rescustomer"
+            android:textColor="#757272" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resstate"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView android:id="@+id/rescity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:paddingRight="2sp"
+            android:hint="email"
+            android:textColor="#757272" />
+
+        <TextView android:id="@+id/scomma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:paddingRight="2sp"
+            android:text=","
+            android:textColor="#757272" />
+
+        <TextView android:id="@+id/reszipCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:hint="comment"
+            android:paddingLeft="5sp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#757272" />
+
+    </LinearLayout>
+
+</LinearLayout>

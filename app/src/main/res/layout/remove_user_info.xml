@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customerLayout" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:orientation="vertical">
+    <RelativeLayout android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Account No"
+                    android:id="@+id/textView3"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/recustomer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Medium"
+                    android:paddingRight="5sp"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Name"
+                    android:id="@+id/textView9"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/restate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Small"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone No"
+                    android:id="@+id/textView4"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/rename"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Small"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:id="@+id/textView7"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/recity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Small"
+                    android:paddingRight="2sp"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount Balance"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/reamount1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Small"
+                    android:textColor="#ffffff"
+                    android:hint="Null"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bottom">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Comment"
+                    android:id="@+id/textView10"
+                    android:layout_weight="1" />
+
+                <TextView android:id="@+id/rezipCode"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@android:style/TextAppearance.Small"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
