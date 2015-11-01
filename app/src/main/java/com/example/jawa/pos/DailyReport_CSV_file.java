@@ -26,6 +26,7 @@ import au.com.bytecode.opencsv.CSVWriter;
 public class DailyReport_CSV_file extends Activity {
 
     private CustomersDbAdapter mDbHelper;
+    private String gmailId,password;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class DailyReport_CSV_file extends Activity {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file), ',', ' ', "\n");
             SQLiteDatabase db = dbhelper1.getReadableDatabase();
-            Cursor curCSV = db.rawQuery("SELECT * FROM TableDailyPurchase ", null);
+            Cursor curCSV = db.rawQuery("SELECT * FROM TableDailyPurchase WHERE Cashcreatedatdate = date('now')", null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while (curCSV.moveToNext()) {
                 //Which column you want to exprort
@@ -62,7 +63,6 @@ public class DailyReport_CSV_file extends Activity {
         Toast.makeText(DailyReport_CSV_file.this, "Daily Purchase Cash Report has been saved successfully", Toast.LENGTH_SHORT).show();
         new Connections().execute();
     }
-
     private class Connections extends AsyncTask {
             @Override
             protected Object doInBackground(Object... arg0) {
@@ -78,6 +78,14 @@ public class DailyReport_CSV_file extends Activity {
                 try {
                     mDbHelper = new CustomersDbAdapter(DailyReport_CSV_file.this);
                     mDbHelper.open();
+
+                    Cursor c1 = mDbHelper.getgmail();
+                    if(c1.moveToFirst()){
+                        do{
+                            gmailId = (c1.getString(2)).toString();
+                            password =(c1.getString(3)).toString();
+                        }while(c1.moveToNext());
+                    }
 
                     int prevdaytotalepurchase = 0,prevdayexpenses = 0,prevsum = 0;
 
@@ -98,11 +106,10 @@ public class DailyReport_CSV_file extends Activity {
                     currentdaySum = expenses + totaldailypurchasechase - prevsum ;
                     aftercreditcleared = creditcustomeramount + cashcustomer;
 
-                    GMailSender sender = new GMailSender("jawafacer@gmail.com",
-                            "17121992");
+                    GMailSender sender = new GMailSender(gmailId, password);
                     sender.sendMail("This is an email sent by ColdStoreApp from an Android device.",
                             "Daily Purchase Cash Report",
-                            "ColdStoreApp", "jawafacer@gmail.com",
+                            "ColdStoreApp", gmailId,
                             "/sdcard/ColdStoreApp/csvcash.csv", "Total Cash business of the day : "+currentdaySum+
                                     "\n\nTotal credit amount of customer : "+creditcustomeramount+
                                     "\n\nTotal cash amount : "+cashcustomer+

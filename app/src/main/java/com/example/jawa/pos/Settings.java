@@ -1,27 +1,32 @@
 package com.example.jawa.pos;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+
+
+
+import java.util.Calendar;
 
 /**
  * Created by jawa on 10/6/2015.
  */
 public class Settings  extends Fragment {
+
     ListView slist;
     String[] web = {
             "Help",
             "Profile",
-            "Account",
-            "Daily Report Dispatch Time",
+            "New account",
+            "Daily report dispatch time",
             "Backup and Recovery"
     };
     Integer[] imageId = {
@@ -41,21 +46,32 @@ public class Settings  extends Fragment {
         slist.setAdapter(adapter);
         slist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
+            public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                switch (web[+position]){
-                    case "Account":
-
+                switch (web[+position]) {
+                    case "New account":
                         Intent passavalue = new Intent(getActivity(), App_holer_register.class);
                         passavalue.putExtra("from", "Cash");
                         final int reslut = 1;
                         startActivityForResult(passavalue, reslut);
                         break;
+                    case "Profile":
+                        startActivity(new Intent(getActivity(), Profile.class));
+                        break;
+                    case "Daily report dispatch time":
+                        startActivity(new Intent(getActivity(), Time_Picker.class));
+                        break;
+                    case "Backup and Recovery":
+                        startActivity(new Intent(getActivity(), Backup_and_reset.class));
+                        break;
+                    case "Help":
+                        startActivity(new Intent(getActivity(), help.class));
+                        break;
                 }
-                Toast.makeText(getActivity(), "You Clicked at " + web[+position], Toast.LENGTH_SHORT).show();
             }
         });
         return view;
-
     }
+
+
 }

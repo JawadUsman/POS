@@ -145,8 +145,6 @@ public class DailyPurchase extends Fragment implements View.OnClickListener {
         // create an alert dialog
         final AlertDialog alert = dlgAlert.create();
         alert.show();
-
-
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -288,10 +286,16 @@ public class DailyPurchase extends Fragment implements View.OnClickListener {
                                 dbHelper = new CustomersDbAdapter(getActivity());
                                 dbHelper.open();
 
-                                cashcompanyname = (EditText) promptView.findViewById(R.id.companyname);
-                                cashamount = (EditText) promptView.findViewById(R.id.amount);
-                                String companyn = cashcompanyname.getText().toString();
-                                int companya = Integer.parseInt(cashamount.getText().toString());
+                                String companyn = null;
+                                int companya = 0;
+                                try {
+                                    cashcompanyname = (EditText) promptView.findViewById(R.id.companyname);
+                                    cashamount = (EditText) promptView.findViewById(R.id.amount);
+                                    companyn = cashcompanyname.getText().toString();
+                                    companya = Integer.parseInt(cashamount.getText().toString());
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                }
                                 if (companyn.isEmpty() && companya == 0) {
                                     Toast.makeText(getActivity(), "Please enter valid amount", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -348,15 +352,23 @@ public class DailyPurchase extends Fragment implements View.OnClickListener {
                                 dbHelper = new CustomersDbAdapter(getActivity());
                                 dbHelper.open();
 
-                                creditcompanyname = (EditText) promptView.findViewById(R.id.creditcompanyname);
-                                ccreditamount = (EditText) promptView.findViewById(R.id.creditamount);
-                                invoiceno = (EditText) promptView.findViewById(R.id.invoice);
-                                dateofpayment = (EditText) promptView.findViewById(R.id.duedate);
+                                String crcompanyn = null;
+                                String crinvoice = null;
+                                String duedate = null;
+                                int crcompanya = 0;
+                                try {
+                                    creditcompanyname = (EditText) promptView.findViewById(R.id.creditcompanyname);
+                                    ccreditamount = (EditText) promptView.findViewById(R.id.creditamount);
+                                    invoiceno = (EditText) promptView.findViewById(R.id.invoice);
+                                    dateofpayment = (EditText) promptView.findViewById(R.id.duedate);
 
-                                String crcompanyn = creditcompanyname.getText().toString();
-                                String crinvoice = invoiceno.getText().toString();
-                                String duedate = dateofpayment.getText().toString();
-                                int crcompanya = Integer.parseInt(ccreditamount.getText().toString());
+                                    crcompanyn = creditcompanyname.getText().toString();
+                                    crinvoice = invoiceno.getText().toString();
+                                    duedate = dateofpayment.getText().toString();
+                                    crcompanya = Integer.parseInt(ccreditamount.getText().toString());
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                }
 
                                 if (crcompanyn.isEmpty() && crcompanya == 0) {
                                     Toast.makeText(getActivity(), "Please enter valid amount", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -11,16 +12,26 @@
     android:background="#777575">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backsingup"
+            android:background="?android:selectableItemBackground"
+            tools:targetApi="honeycomb"
+            android:src="@drawable/whitearrows"
+            android:padding="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/singup"
+            android:layout_gravity="center_vertical"
             android:id="@+id/textView12"
             android:textColor="#ffffff"
             android:textSize="25sp" />
@@ -37,12 +48,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/fname"
             android:hint="First Name"
             android:textColorHint="#625f5f"
             android:layout_marginBottom="15dp"
             android:textSize="20sp"
-            android:textColor="#625f5f"
+            android:textColor="#ffffff"
             android:background="#3c3c3c"
             android:padding="15dp" />
 
@@ -51,12 +62,25 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/lname"
             android:textColorHint="#625f5f"
             android:layout_marginBottom="15dp"
             android:hint="Last Name"
             android:textSize="20sp"
-            android:textColor="#625f5f"
+            android:textColor="#ffffff"
+            android:background="#3c3c3c"
+            android:padding="15dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/phoneNo"
+            android:layout_marginBottom="15dp"
+            android:hint="Phone Number"
+            android:textColorHint="#625f5f"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
             android:background="#3c3c3c"
             android:padding="15dp" />
         <EditText
@@ -64,12 +88,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText4"
-            android:layout_marginBottom="15dp"
-            android:hint="Phone Number"
+            android:id="@+id/lcompanyname"
             android:textColorHint="#625f5f"
+            android:layout_marginBottom="15dp"
+            android:hint="Company Name"
             android:textSize="20sp"
-            android:textColor="#625f5f"
+            android:textColor="#ffffff"
             android:background="#3c3c3c"
             android:padding="15dp" />
 
@@ -114,11 +138,11 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:layout_marginBottom="15dp"
-            android:id="@+id/editText3"
+            android:id="@+id/gmailId"
             android:hint="Gmail Address"
             android:textColorHint="#625f5f"
             android:textSize="20sp"
-            android:textColor="#625f5f"
+            android:textColor="#ffffff"
             android:background="#3c3c3c"
             android:padding="15dp" />
 
@@ -127,12 +151,12 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText5"
+            android:id="@+id/password"
             android:hint="Password"
             android:textColorHint="#625f5f"
             android:layout_marginBottom="15dp"
             android:textSize="20sp"
-            android:textColor="#625f5f"
+            android:textColor="#ffffff"
             android:background="#3c3c3c"
             android:padding="15dp" />
 
@@ -140,6 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Done"
+            android:onClick="singup"
             android:id="@+id/button2" />
 
     </LinearLayout>

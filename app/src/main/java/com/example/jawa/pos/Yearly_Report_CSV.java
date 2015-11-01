@@ -20,6 +20,7 @@ import au.com.bytecode.opencsv.CSVWriter;
 public class Yearly_Report_CSV extends Activity {
 
     private CustomersDbAdapter mDbHelper;
+    private String gmailId,password;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,14 @@ public class Yearly_Report_CSV extends Activity {
                     mDbHelper = new CustomersDbAdapter(Yearly_Report_CSV.this);
                     mDbHelper.open();
 
+                    Cursor c1 = mDbHelper.getgmail();
+                    if(c1.moveToFirst()){
+                        do{
+                            gmailId = (c1.getString(2)).toString();
+                            password =(c1.getString(3)).toString();
+                        }while(c1.moveToNext());
+                    }
+
                     int Totalyearlyexpense = 0,Totalyearlyrevenues = 0,Totalyearlycredit = 0, Totalyearlycashaftercredit = 0;
 
                     Totalyearlyexpense = mDbHelper.getSumOfAllAvgofexpensesofayear("expenses", "expenses_created_at");
@@ -81,11 +90,10 @@ public class Yearly_Report_CSV extends Activity {
 
                     Totalyearlycashaftercredit = Totalyearlycredit + Totalyearlyrevenues;
 
-                    GMailSender sender = new GMailSender("jawafacer@gmail.com",
-                            "17121992");
+                    GMailSender sender = new GMailSender(gmailId, password);
                     sender.sendMail("This is an email sent by ColdStoreApp from an Android device.",
                             "Year Report",
-                            "ColdStoreApp", "jawafacer@gmail.com",
+                            "ColdStoreApp", gmailId,
                             "/sdcard/ColdStoreApp/csvyearlycash.csv", "\t\t\t\t\tYearly Business Review" +
                                     "\n\t\t\t\t\tExecutive Summary" +
                                     "\n\n\tExpense Report" +

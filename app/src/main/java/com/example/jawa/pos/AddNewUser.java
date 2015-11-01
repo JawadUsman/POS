@@ -72,13 +72,16 @@ public class AddNewUser extends Activity {
 
             if(customer.isEmpty() && state.isEmpty() && address2.isEmpty() ||
                 city.length() == 0 || city.equals("") && zipCode == null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+
+                View view1 = this.getCurrentFocus();
+                if (view1 != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+                }
             Toast.makeText(AddNewUser.this, "Incomplete Registration", Toast.LENGTH_SHORT).show();
         } else {
             //Add some Customer data as a sample
             long id = mDbHelper.createCustomer(customer, city, name, address1, address2, state, zipCode, camount);
-
             if (id < 0) {
                 Toast.makeText(AddNewUser.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
             } else {

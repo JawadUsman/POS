@@ -7,19 +7,14 @@ package com.example.jawa.pos;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
 
 public class CustomersDbAdapter {
 
@@ -80,6 +75,24 @@ public class CustomersDbAdapter {
             CREDIT_PURCHASE_PAYMENTDATE+" INTEGER ," +
             "UNIQUE (" + CREDIT_PURCHASE_INVOICENO +"))";
 
+    public static final String PROFILE_TABLE_NAME = "profiletable";
+    public static final String PROFILE_ID = "profile_ID";
+    public static final String PROFILE_NAME = "profile_Name";
+    public static final String PROFILE_PHONE_NUMBER = "profile_Number";
+    public static final String PROFILE_GMAIL_ID = "profile_gmailId";
+    public static final String PROFILE_PASSWORD = "profile_Password";
+    public static final String PROFILE_COMPANY = "company_Name";
+    public static final String PROFILE_CREATED_AT_DATE = "profile_create_At";
+    public static final String PROFILE_TABLE_CREATE = "CREATE VIRTUAL TABLE "+ PROFILE_TABLE_NAME +" USING fts3("+
+            PROFILE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            PROFILE_NAME+","+
+            PROFILE_PHONE_NUMBER+","+
+            PROFILE_GMAIL_ID+","+
+            PROFILE_PASSWORD+"," +
+            PROFILE_COMPANY+"," +
+            PROFILE_CREATED_AT_DATE+","+
+            "UNIQUE ("+PROFILE_ID+"))";
+
     //Create a FTS3 Virtual Table for fast searches
     public static final String DATABASE_CREATE =
             "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE + " USING fts3(" +
@@ -137,6 +150,7 @@ public class CustomersDbAdapter {
             db.execSQL(CREATE_DIALY_PURCHASE_CASH);
             db.execSQL(CREATE_DIALY_PURCHASE_CREDIT);
             db.execSQL(CREATE_EXPENSES);
+            db.execSQL(PROFILE_TABLE_CREATE);
         }
 
         @Override
@@ -148,6 +162,7 @@ public class CustomersDbAdapter {
             db.execSQL("DROP TABLE IF EXISTS " + DIALY_PURCHASE_CASH_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + DIALY_PURCHASE_CREDIT_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + EXPENSES_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + PROFILE_TABLE_NAME);
             onCreate(db);
         }
     }
@@ -167,6 +182,37 @@ public class CustomersDbAdapter {
             mDbHelper.close();
         }
     }
+
+    public long profileCustomer(String name, String phoneNo, String gmailId, String password,String companyName) {
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PROFILE_NAME, name);
+        contentValues.put(PROFILE_PHONE_NUMBER, phoneNo);
+        contentValues.put(PROFILE_COMPANY, companyName);
+        contentValues.put(PROFILE_GMAIL_ID, gmailId);
+        contentValues.put(PROFILE_PASSWORD, password);
+        contentValues.put(PROFILE_CREATED_AT_DATE, date);
+        long db1 = mDb.insert(PROFILE_TABLE_NAME, null, contentValues);
+        return  db1;
+    }
+
+
+
+    public Cursor getgmail() throws SQLException {
+        String[] colums = {PROFILE_NAME,PROFILE_PHONE_NUMBER,PROFILE_GMAIL_ID,PROFILE_PASSWORD,
+                PROFILE_COMPANY,PROFILE_CREATED_AT_DATE};
+        Cursor Cursor =mDb.query(PROFILE_TABLE_NAME,colums,null,null,null,null, null);
+        if (Cursor != null) {
+            Cursor.moveToFirst();
+        }
+        return Cursor;
+    }
+
     public long cashCustomer(int cashamount, String commenet) {
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -227,8 +273,8 @@ public class CustomersDbAdapter {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
-
         String aTime = updateTime();
+
         ContentValues initialValues = new ContentValues();
         initialValues.put(CASH_PURCHASE_COMPANY, name);
         initialValues.put(CASH_PURCHASE_AMOUNT, amount);
@@ -241,7 +287,7 @@ public class CustomersDbAdapter {
         String[] col =  new String[] {KEY_ROWID,
                 CASH_PURCHASE_AMOUNT, CASH_PURCHASE_COMPANY, CASH_CREATED_AT};
         Cursor mCursor = mDb.query(DIALY_PURCHASE_CASH_TABLE, col,
-                null, null, null, null, null);
+                CASH_CREATED_AT_DATE+"= date('now')", null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -543,18 +589,31 @@ public class CustomersDbAdapter {
         }
     }
 
-    public boolean deleteAlldailycashdayend() {
+    public boolean deleteAlldailycashdayend(String tableName) {
 
         int doneDelete = 0;
-        doneDelete = mDb.delete(FTS_VIRTUAL_TABLE, null , null);
+        doneDelete = mDb.delete(tableName, null , null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
 
     }
-    public boolean deletearow(String name){
+    public boolean deletearow(String tableName,String colname, String name){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        return db.delete(DIALY_PURCHASE_CASH_TABLE, CASH_PURCHASE_COMPANY + "=" + name, null) > 0;
+        return db.delete(tableName, colname + "=" + name, null) > 0;
     }
 
+    public void clearAll()
+    {
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
+        SQLiteDatabase db = mDbHelper.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
+
+        db.delete(FTS_VIRTUAL_TABLE, null, null);
+        db.delete(CASH_TABLE, null, null);
+        db.delete(DIALY_PURCHASE_CASH_TABLE, null, null);
+        db.delete(DIALY_PURCHASE_CREDIT_TABLE, null, null);
+        db.delete(EXPENSES_TABLE, null, null);
+        db.delete(PROFILE_TABLE_NAME, null, null);
+    }
 }
 

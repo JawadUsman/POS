@@ -25,6 +25,7 @@ import au.com.bytecode.opencsv.CSVWriter;
  */
 public class RAR__CSV_file extends Activity {
     private CustomersDbAdapter mDbHelper;
+    private String gmailId,password;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,11 +84,18 @@ public class RAR__CSV_file extends Activity {
                     mDbHelper = new CustomersDbAdapter(RAR__CSV_file.this);
                     mDbHelper.open();
 
-                    GMailSender sender = new GMailSender("jawafacer@gmail.com",
-                            "17121992");
+                    Cursor c1 = mDbHelper.getgmail();
+                    if(c1.moveToFirst()){
+                        do{
+                            gmailId = (c1.getString(2)).toString();
+                            password =(c1.getString(3)).toString();
+                        }while(c1.moveToNext());
+                    }
+
+                    GMailSender sender = new GMailSender(gmailId, password);
                     sender.sendMail("This is an email sent by ColdStoreApp from an Android device.",
                             "Registered Account Report",
-                            "ColdStoreApp", "jawafacer@gmail.com",
+                            "ColdStoreApp", gmailId,
                             "/sdcard/ColdStoreApp/csvcreditcustomer.csv","Please find the attachment of Registered account " +
                                     "Report below ");
                     runOnUiThread(new Runnable() {

@@ -11,6 +11,6 @@
     <string name="removeuser">RemoveUser</string>
     <string name="accountno">Enter Account No</string>
     <string name="accno">Account No</string>
-    <string name="links"><a href="https://www.google.com/settings/security/lesssecureapps"><b>Enable/Trun on</b></a></string>
-    <string name="singup"><b>Sing Up</b></string>
+    <string name="links"><a href="https://www.google.com/settings/security/lesssecureapps">Enable/Trun on</a></string>
+    <string name="singup"><b>Sign Up</b></string>
 </resources>

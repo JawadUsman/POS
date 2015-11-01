@@ -30,7 +30,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:gravity="center_horizontal"
-            android:paddingTop="13dp"
+            android:paddingTop="10dp"
             android:paddingRight="15dp"
             />
 
